@@ -31,7 +31,7 @@ posterior <- unstd.posterior / sum(unstd.posterior)
 
 plot( p_grid , posterior , type="l" , xlab="proportion water" , ylab="posterior probability" )
 
-## Problem 3
+
 
 samples <- sample( p_grid , prob=posterior , size=1e4 , replace=TRUE )
 plot( samples , ylim=c(0,1) , xlab="samples" , ylab="proportion water" )

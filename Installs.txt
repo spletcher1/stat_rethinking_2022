@@ -1,0 +1,3 @@
+https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started
+http://mc-stan.org
+https://github.com/rmcelreath/rethinking
