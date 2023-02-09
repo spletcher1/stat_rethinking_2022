@@ -1,4 +1,4 @@
-
+library(rethinking)
 
 ######################
 # Question #1
@@ -23,14 +23,14 @@ sum(posterior)
 # Question #2
 ######################
 
-probs<-seq(0,1,length.out=500)
+probs<-seq(0,1,length.out=50000)
 
 likelihoods<-dbinom(4,6,probs)
 
 plot(probs,likelihoods)
 
-tmp<-rep(0,250)
-prior<-rep(1/250,250)
+tmp<-rep(0,25000)
+prior<-rep(1,25000)
 prior<-c(tmp,prior)
 
 posterior<-(likelihoods*prior)/(sum(likelihoods*prior))
