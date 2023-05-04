@@ -31,7 +31,7 @@ data.ok<-subset(data,data$Exposure=="OK_Tra")
 ## ## W_Tra first using 90% of the data.
 mu.list<-seq(from=986, to=1824, length.out=100)
 sigma.list<-seq(from=100, to=500, length.out=100)
-post<-expand.grid(mu=mu.list,sigma=sigma.list)
+post<-expand.grid(mu=mu.list,sigma=sigma.list)?msap
 
 ll.function<-function(i,post,data){
   sum(dnorm(data$Age , post$mu[i] , post$sigma[i] , log=TRUE ) )
@@ -159,6 +159,21 @@ summary(samples$Beta)
 sum(samples$Beta>0)/length(samples$Beta)
 
 
+
+
+
+
+
+
+
+data<-read.csv("Data.csv")
+data$Exposure<-factor(data$Exposure)
+
+tmp<-rep(1,nrow(data))
+tmp[data$Exposure=="OK_Tra"]<-0
+new.data<-data.frame(data,tmp)
+names(new.data)<-c(names(data),"Indicator")
+
 ## Let's try fitting the quadratic approximation to the prior.
 answer <- quap(
   alist(
@@ -166,8 +181,15 @@ answer <- quap(
     mu <- alpha+beta*Indicator,
     alpha ~ dnorm( 1500 , 300 ) ,
     beta ~ dnorm( 0 , 500 ) ,
-    sigma ~ dunif( 200 , 500 )
+    sigma ~ dunif( 20 , 500 )
   ) , data=new.data )
 
 precis(answer)
 round(vcov(answer),3)
+
+post<-extract.samples(answer,10000)
+hist(post$beta)
+dens(post$beta)
+
+## Probability that beta>0
+sum(post$beta>0)/length(post$beta)
