@@ -31,7 +31,7 @@ data.ok<-subset(data,data$Exposure=="OK_Tra")
 ## ## W_Tra first using 90% of the data.
 mu.list<-seq(from=986, to=1824, length.out=100)
 sigma.list<-seq(from=100, to=500, length.out=100)
-post<-expand.grid(mu=mu.list,sigma=sigma.list)?msap
+post<-expand.grid(mu=mu.list,sigma=sigma.list)
 
 ll.function<-function(i,post,data){
   sum(dnorm(data$Age , post$mu[i] , post$sigma[i] , log=TRUE ) )
@@ -52,8 +52,8 @@ post$prod<-post$LL + apply.prior.mu(post$mu,1000,200) + apply.prior.sigma(post$s
 post$prob<-exp(post$prod-max(post$prod))
 
 ##Visualize the posterior
-contour_xyz(post$mu,post$sigma,post$prob)
-image_xyz(post$mu,post$sigma,post$prob)
+contour_xyz(post$mu,post$sigma,post$prob,xlab="Mu",ylab="Sigma")
+image_xyz(post$mu,post$sigma,post$prob,xlab="Mu",ylab="Sigma")
 
 
 sample.rows <- sample( 1:nrow(post) , size=1e4 , replace=TRUE ,
