@@ -18,6 +18,8 @@ posterior<-(likelihoods*prior)/(sum(likelihoods*prior))
 
 plot(probs,posterior,xlab="Water Fraction of Earth")
 
+lines(probs,likelihoods/sum(likelihoods),col=2)
+
 sum(posterior)
 
 
@@ -91,6 +93,7 @@ mean(estimated.perc.water)
 
 simulated.sample<-get.sample(0.7,20)
 
-  
+
+
 
 

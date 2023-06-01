@@ -179,9 +179,9 @@ answer <- quap(
   alist(
     Age ~ dnorm( mu , sigma ) ,
     mu <- alpha+beta*Indicator,
-    alpha ~ dnorm( 1500 , 300 ) ,
-    beta ~ dnorm( 0 , 500 ) ,
-    sigma ~ dunif( 20 , 500 )
+    alpha ~ dnorm( 1500 , 10 ) ,
+    beta ~ dnorm( 100 , 100 ) ,
+    sigma ~ dunif( 0 , 50 )
   ) , data=new.data )
 
 precis(answer)
