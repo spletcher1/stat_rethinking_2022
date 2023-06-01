@@ -12,6 +12,8 @@ plot(probs,likelihoods)
 
 prior<-rep(1/500,500)
 
+plot(prior)
+
 posterior<-(likelihoods*prior)/(sum(likelihoods*prior))
 
 plot(probs,posterior,xlab="Water Fraction of Earth")
@@ -69,8 +71,26 @@ raw.perc.water<-raw.water.results/sample.size
 dens(estimated.perc.water,xlab="Estimated",xlim=c(0,1))
 dens(raw.perc.water,xlab="Raw",xlim=c(0,1))
   
+get.sample<-function(water.p,reps){
+  results<-rep(NA,reps)
+  for(i in 1:length(results)){
+    tmp<-rbinom(1,1,water.p)
+    if(tmp==1){
+      tmp2<-runif(1)
+      if(tmp2<0.2){
+        tmp<-0
+      }
+    }
+    results[i]<-tmp
+  }
+  results
+}
+
 
 mean(estimated.perc.water)
+
+simulated.sample<-get.sample(0.7,20)
+
   
 
 
